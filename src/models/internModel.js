@@ -19,6 +19,7 @@ const internSchema = mongoose.Schema({
     mobile: {
         type: String,
         unique: true,
+        trim: true,
         validate: {
             validator: function (v) {
                 return /^(\+\d{1,3}[- ]?)?\d{10}$/.test(v);
@@ -31,3 +32,5 @@ const internSchema = mongoose.Schema({
     isDeleted: { type: Boolean, default: false }
 
 }, { timestamps: true })
+
+module.exports = mongoose.model('intern', internSchema)
