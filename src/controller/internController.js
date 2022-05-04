@@ -3,7 +3,7 @@ const college = require("../models/collegeModel")
 
 const createIntern = async function (req, res) {
     try {
-        let data = req.body
+        let data = req.body;
 
         /*****************************Validation***********************************************/
         if (!Object.keys(data).length)
