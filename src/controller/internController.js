@@ -10,10 +10,15 @@ const createIntern = async function (req, res) {
             return res.status(400).send({ status: false, message: "You must enter data" })
 
         if (!data.collegeName) return res.status(400).send({ status: false, message: "You must Give college name" })
-
         if (!data.name) return res.status(400).send({ status: false, message: "You must enter name" })
         if (!data.name.trim().match(/^[a-zA-Z,\s]*$/)) // REGEX using .match()
             return res.status(400).send({ status: false, msg: "Enter a valid name." })
+
+        if(!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email.trim())))
+        return res.status(400).send({status: false, msg: "Enter a valid email address."})
+
+        if(!data.mobile.trim().match(/^(\+\d{1,3}[- ]?)?\d{10}$/))
+        return res.status(400).send({status: false, msg: "Enter a valid mobile number."})
 
         let findCollege = await college.findOne({ name: data.collegeName })
 

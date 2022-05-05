@@ -17,6 +17,7 @@ const createCollege = async function(req, res){
 
      if(!data.fullName.trim().match(/^[a-zA-Z,\-.\s]*$/)) // REGEX using .match()
      return res.status(400).send({status: false, msg: "Enter a valid full name."})
+     
      /*************************************************************************************/
 
     let created = await college.create(data)
