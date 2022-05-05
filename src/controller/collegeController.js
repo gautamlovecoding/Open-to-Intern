@@ -12,11 +12,14 @@ const createCollege = async function (req, res) {
         if (!data.fullName) return res.status(400).send({ status: false, message: "You must enter full name" })
         if (!data.logoLink) return res.status(400).send({ status: false, message: "You must enter logoLink" })
 
-        if (!data.name.trim().match(/^[a-zA-Z]+$/)) // REGEX using .match()
+        if (!data.logoLink.trim().match(/^(http(s)?:\/\/)?(www.)?([a-zA-Z0-9])+([\-\.]{1}[a-zA-Z0-9]+)\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/[^\s])?$/))
+            return res.status(400).send({ status: false, msg: "Enter a valid logo link" })
+
+        if (!data.name.trim().match(/^[a-zA-Z]+$/)) 
             return res.status(400).send({ status: false, msg: "Enter a valid name." })
 
 
-        if (!data.fullName.trim().match(/^[a-zA-Z,\-.\s]*$/)) // REGEX using .match()
+        if (!data.fullName.trim().match(/^[a-zA-Z,\-.\s]*$/))
             return res.status(400).send({ status: false, msg: "Enter a valid full name." })
 
         /*************************************************************************************/

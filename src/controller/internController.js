@@ -29,7 +29,7 @@ const createIntern = async function (req, res) {
 
         let findCollege = await college.findOne({ name: data.collegeName })
 
-        if (!findCollege) res.status(404).send({ status: false, message: "Document not Found" })
+        if (!findCollege) res.status(404).send({ status: false, message: "College not Found" })
         /****************************************************************************************/
 
         delete data.collegeName
