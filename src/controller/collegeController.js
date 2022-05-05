@@ -32,17 +32,14 @@ catch(err){
 
 const getCollege = async function (req,res){
     let getData = req.query
-
+    /*****************************Validation*****************************************************************/
     if(!getData.collegeName) return res.status(400).send({status: false, message: "You must enter your filter"})
     let findCollege = await college.findOne({name: getData.collegeName})
     // console.log(findCollege);
     if(!findCollege) return res.status(404).send({status: false, message: "Document not found"})
-
+    /*******************************************************************************************************/
     let collegeId = findCollege._id
-
-    let findIntern = await intern.find({collegeId: collegeId})
-
-    // console.log(findIntern);
+    let findIntern = await intern.find({collegeId: collegeId, isDeleted: false}).select({_id:1, name:1, email:1, mobile:1})
 
     return res.status(200).send({
         status: true,
@@ -53,8 +50,6 @@ const getCollege = async function (req,res){
             "interests":findIntern
         }
     })
-
-
 }
 
 module.exports.createCollege = createCollege;

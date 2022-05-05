@@ -5,7 +5,7 @@ const createIntern = async function (req, res) {
     try {
         let data = req.body;
 
-        /*****************************Validation***********************************************/
+        /***************************** Validation ***********************************************/
         if (!Object.keys(data).length)
             return res.status(400).send({ status: false, message: "You must enter data" })
 
@@ -18,7 +18,7 @@ const createIntern = async function (req, res) {
         let findCollege = await college.findOne({ name: data.collegeName })
 
         if (!findCollege) res.status(404).send({ status: false, message: "Document not Found" })
-        /*************************************************************************************/
+        /****************************************************************************************/
 
         delete data.collegeName
         data.collegeId = findCollege._id
