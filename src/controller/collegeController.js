@@ -12,7 +12,7 @@ const createCollege = async function (req, res) {
         if (!data.fullName) return res.status(400).send({ status: false, message: "You must enter full name" })
         if (!data.logoLink) return res.status(400).send({ status: false, message: "You must enter logoLink" })
 
-        if (!data.logoLink.trim().match(/^(http(s)?:\/\/)?(www.)?([a-zA-Z0-9])+([\-\.]{1}[a-zA-Z0-9]+)\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/[^\s])?$/))
+        if (!data.logoLink.trim().match(/^(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%.\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%\+.~#?&//=]*)$/))
             return res.status(400).send({ status: false, msg: "Enter a valid logo link" })
 
         if (!data.name.trim().match(/^[a-zA-Z]+$/)) 
