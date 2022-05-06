@@ -32,21 +32,16 @@ const createIntern = async function (req, res) {
 
         let isRegisteredMobile = await intern.find({ mobile: data.mobile });
         if (isRegisteredMobile.length) return res.status(400).send({ status: false, msg: "mobile number already registered" });
-    
-
-        let findCollege = await college.findOne({ name: data.collegeName })
-
-        if (!findCollege) res.status(404).send({ status: false, message: "College not Found" })
         /****************************************************************************************/
 
         delete data.collegeName
-        data.collegeId = findCollege._id
+        data.collegeId = checkCollegeName._id
         let created = await intern.create(data)
         res.status(201).send({ status: true, data: created })
     }
     catch (err) {
         console.log(err.message)
-        res.status(500).send({ status: false, message: err.message })
+        res.status(500).send({ status: false, message: err.message})
     }
 
 }
