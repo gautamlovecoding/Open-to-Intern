@@ -21,8 +21,9 @@ const createIntern = async function (req, res) {
         if (!data.name.trim().match(/^[a-zA-Z,\s]*$/)) // REGEX using .match()
             return res.status(400).send({ status: false, msg: "Enter a valid name." })
 
-            if(!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email.trim())))
-            return res.status(400).send({status: false, msg: "Enter a valid email address."})
+        if(!data.email) return res.status(400).send({ status: false, message: "You must give emailId" })  
+        if(!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)))
+        return res.status(400).send({status: false, msg: "Enter a valid email address."})
 
         let isRegisteredEmail = await intern.find({ email: data.email });
         if (isRegisteredEmail.length) return res.status(400).send({ status: false, message: "email id already registered" });
