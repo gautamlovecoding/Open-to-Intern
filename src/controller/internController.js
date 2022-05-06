@@ -21,8 +21,8 @@ const createIntern = async function (req, res) {
         if (!data.name.trim().match(/^[a-zA-Z,\s]*$/)) // REGEX using .match()
             return res.status(400).send({ status: false, msg: "Enter a valid name." })
 
-        if(!(/^[A-Za-z0-9_]{3,}@[A-Za-z]{3,}[.]{1}[A-Za-z.]{2,6}$/.test(data.email.trim())))
-        return res.status(400).send({status: false, msg: "Enter a valid email address."})
+            if(!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email.trim())))
+            return res.status(400).send({status: false, msg: "Enter a valid email address."})
 
         let isRegisteredEmail = await intern.find({ email: data.email });
         if (isRegisteredEmail.length) return res.status(400).send({ status: false, message: "email id already registered" });
@@ -41,7 +41,7 @@ const createIntern = async function (req, res) {
     }
     catch (err) {
         console.log(err.message)
-        res.status(500).send({ status: false, message: err.message})
+        res.status(500).send({ status: false, message: err.message })
     }
 
 }
