@@ -22,7 +22,7 @@ const createIntern = async function (req, res) {
             return res.status(400).send({ status: false, msg: "Enter a valid name." })
 
         if(!data.email) return res.status(400).send({ status: false, message: "You must give emailId" })  
-        if(!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)))
+        if(!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email.trim())))
         return res.status(400).send({status: false, msg: "Enter a valid email address."})
 
         let isRegisteredEmail = await intern.find({ email: data.email });
