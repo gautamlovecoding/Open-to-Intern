@@ -40,9 +40,11 @@ const getCollege = async function (req, res) {
     let getData = req.query
     /*****************************Validation*****************************************************************/
     if (!getData.collegeName) return res.status(400).send({ status: false, message: "You must enter your College Name" })
+    if (!getData.collegeName.trim().match(/^[a-zA-Z]+$/)) 
+     return res.status(400).send({ status: false, msg: "Enter a valid college name." })
+
     let findCollege = await college.findOne({ name: getData.collegeName })
-    // console.log(findCollege);
-    if (!findCollege) return res.status(404).send({ status: false, message: "Your college is not registered with us." })
+    if (!findCollege) return res.status(404).send({ status: false, message: "Your college is not registered with us."})
     /*******************************************************************************************************/
     let collegeId = findCollege._id
     let findIntern = await intern.find({ collegeId: collegeId, isDeleted: false }).select({ _id: 1, name: 1, email: 1, mobile: 1 })
